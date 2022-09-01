@@ -1,0 +1,20 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TLSRoute
+metadata:
+  name: cluster1
+  namespace: cluster1
+  labels:
+    cluster: cluster1
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: contour
+    namespace: projectcontour
+  hostnames:
+  - "kubernetes.default.svc.cluster1.local"
+  rules:
+  - backendRefs:
+    - name: cluster1
+      namespace: cluster1
+      port: 6443

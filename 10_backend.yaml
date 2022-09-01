@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fab-nginx
+  labels:
+    app: fab-nginx
+spec:
+  containers:
+  - name: webserver
+    image: docker.io/library/nginx:latest
+    ports:
+    - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  type: LoadBalancer
+  selector:
+    app: fab-nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      name: "1"

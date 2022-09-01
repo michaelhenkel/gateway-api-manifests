@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.contrail.juniper.net/externalNetwork: fabric/fabvn
+  name: envoy
+  namespace: projectcontour
+spec:
+  ports:
+  - name: http
+    nodePort: 30427
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  - name: https
+    nodePort: 31877
+    port: 443
+    protocol: TCP
+    targetPort: 8443
+  selector:
+    app: envoy
+  type: LoadBalancer

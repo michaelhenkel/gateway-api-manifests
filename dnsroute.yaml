@@ -1,0 +1,19 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: UDPRoute
+metadata:
+  name: ext-dns
+  namespace: ext-dns
+  labels:
+    app: ext-dns
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: contour
+    namespace: projectcontour
+  hostnames:
+  - "dns.default.svc.cluster1.local"
+  rules:
+  - backendRefs:
+    - name: ext-dns
+      port: 53
